@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Flow Diagram</title>
+    <style>
+        #toggle-controls, #modify-toggle {
+            margin-bottom: 20px;
+        }
+
+        #diagram-container {
+            margin: 20px;
+        }
+
+        #toggle-controls label {
+            margin-right: 15px;
+        }
+
+        #toggle-controls {
+            display: none; /* Initially hide the toggle controls */
+        }
+
+        svg {
+            width: 300px;
+            overflow: visible;
+        }
+
+        rect {
+            stroke: black;
+            stroke-width: 2;
+        }
+      
+        /* Add a border/frame to the div */
+        .framed-div {
+            border: 2px solid black; /* 2-pixel solid black border */
+            padding: 15px; /* Inner spacing around the content */
+            width: 600px; /* Width of the div */
+            //margin: 20px auto; /* Center the div with automatic margins */
+        }
+    </style>
+</head>
+<body>
+    <!-- Modify Toggle -->
+    <div id="modify-toggle">
+        <label><input type="checkbox" id="modifyCheckbox"> Modify</label>
+    </div>
+
+    <div id="toggle-controls">
+        <p>Tenant definition:</p>
+        <label><input type="checkbox" id="toggle_Lightning" disabled> Lightning</label>
+        <label><input type="checkbox" id="toggle_CEIC" disabled> CEIC</label>
+        <label><input type="checkbox" id="toggle_New_PH" disabled> New PH</label>
+      
+        <p>Task parameters:</p>
+      
+        <div class="framed-div">
+        <p>SF</p>   
+        <label><input type="checkbox" id="toggle_Pre_script_SF" disabled> Pre script SF</label>
+        <label><input type="checkbox" id="toggle_Post_script_SF" disabled> Post script SF</label>
+        <label><input type="checkbox" id="toggle_Copy_sf_tables" disabled> Copy sf tables</label>
+        <label><input type="checkbox" id="toggle_Drop_ogen_tables" disabled> Drop ogen tables</label>
+        </div>
+      
+        <div class="framed-div">
+        <p>SQL</p>   
+        <label><input type="checkbox" id="toggle_Pre_script_SQL" disabled> Pre script SQL</label>
+        <label><input type="checkbox" id="toggle_Post_script_SQL" disabled> Post script SQL</label>
+        </div>
+      
+        <div class="framed-div">
+        <p>ETL</p>
+        <label><input type="checkbox" id="toggle_Replace_Matillion_job" disabled> Replace Matillion job</label>
+        <label><input type="checkbox" id="toggle_Trigger_ETL" disabled> Trigger ETL</label>
+        </div>
+      
+        <div class="framed-div">
+        <p>Dag's</p>
+        <label><input type="checkbox" id="toggle_Complete_PR" disabled> Complete PR</label>
+        <label><input type="checkbox" id="toggle_Trigger_profile_DAG" disabled> Trigger profile DAG</label>
+        <label><input type="checkbox" id="toggle_Trigger_snapshot_DAG" disabled> Trigger snapshot DAG</label>
+        <label><input type="checkbox" id="toggle_Trigger_ph_DAG" disabled> Trigger ph DAG</label>
+        </div>
+      
+        <div class="framed-div">
+        <p>Attributes</p>  
+        <label><input type="checkbox" id="toggle_Delete_periodic_attributes" disabled> Delete periodic attributes</label>
+        <label><input type="checkbox" id="toggle_Delete_granular_attributes" disabled> Delete granular attributes</label>
+        <label><input type="checkbox" id="toggle_Adding_periodic_attributes" disabled> Adding periodic attributes</label>
+        <label><input type="checkbox" id="toggle_Adding_granular_attributes" disabled> Adding granular attributes</label>
+        </div>
+        
+    </div>
+
+    <div id="diagram-container">
+        <svg height="1500">
+            <!-- Section 1 Boxes -->
+            <rect id="box_Delete_periodic_attributes" x="200" y="10" width="200" height="50" fill="green" />
+            <text x="300" y="40" font-size="14" text-anchor="middle" fill="white">Delete periodic attributes</text>
+
+            <rect id="box_Delete_granular_attributes" x="200" y="80" width="200" height="50" fill="green" />
+            <text x="300" y="110" font-size="14" text-anchor="middle" fill="white">Delete granular attributes</text>
+
+            <rect id="box_Copy_sf_tables" x="200" y="150" width="200" height="50" fill="green" />
+            <text x="300" y="180" font-size="14" text-anchor="middle" fill="white">Copy sf tables</text>
+
+            <rect id="box_Pre_script_SQL" x="200" y="220" width="200" height="50" fill="green" />
+            <text x="300" y="250" font-size="14" text-anchor="middle" fill="white">Pre script SQL</text>
+
+            <rect id="box_Pre_script_SF" x="200" y="290" width="200" height="50" fill="green" />
+            <text x="300" y="320" font-size="14" text-anchor="middle" fill="white">Pre script SF</text>
+
+            <rect id="box_Drop_ogen_tables" x="200" y="360" width="200" height="50" fill="green" />
+            <text x="300" y="390" font-size="14" text-anchor="middle" fill="white">Drop ogen tables</text>
+
+            <!-- Section 2 Boxes -->
+            <rect id="box_Replace_Matillion_job" x="200" y="430" width="200" height="50" fill="green" />
+            <text x="300" y="460" font-size="14" text-anchor="middle" fill="white">Replace Matillion job</text>
+
+            <rect id="box_Trigger_ETL" x="200" y="500" width="200" height="50" fill="green" />
+            <text x="300" y="530" font-size="14" text-anchor="middle" fill="white">Trigger ETL</text>
+
+            <rect id="box_Complete_PR" x="200" y="570" width="200" height="50" fill="green" />
+            <text x="300" y="600" font-size="14" text-anchor="middle" fill="white">Complete PR</text>
+
+            <rect id="box_Trigger_profile_DAG" x="0" y="640" width="200" height="50" fill="green" />
+            <text x="100" y="670" font-size="14" text-anchor="middle" fill="white">Trigger profile DAG</text>       
+            <rect id="box_Trigger_snapshot_DAG" x="200" y="640" width="200" height="50" fill="green" />
+            <text x="300" y="670" font-size="14" text-anchor="middle" fill="white">Trigger snapshot DAG</text>      
+            <rect id="box_Trigger_ph_DAG" x="400" y="640" width="200" height="50" fill="green" />
+            <text x="500" y="670" font-size="14" text-anchor="middle" fill="white">Trigger ph DAG</text>
+
+            <rect id="box_Trigger_multi_actions_profile" x="0" y="710" width="200" height="50" fill="green" />
+            <text x="100" y="740" font-size="14" text-anchor="middle" fill="white">Trigger multi actions profile</text>      
+            <rect id="box_Trigger_multi_actions_snapshot" x="200" y="710" width="200" height="50" fill="green" />
+            <text x="300" y="740" font-size="14" text-anchor="middle" fill="white">Trigger multi actions snapshot</text>
+            <rect id="box_Trigger_multi_actions_ph" x="400" y="710" width="200" height="50" fill="green" />
+            <text x="500" y="740" font-size="14" text-anchor="middle" fill="white">Trigger multi actions ph</text>
+
+            <rect id="box_Adding_periodic_attributes" x="200" y="780" width="200" height="50" fill="green" />
+            <text x="300" y="810" font-size="14" text-anchor="middle" fill="white">Adding periodic attributes</text>
+
+            <!-- Section 3 Boxes -->
+            <rect id="box_Adding_granular_attributes" x="200" y="850" width="200" height="50" fill="green" />
+            <text x="300" y="880" font-size="14" text-anchor="middle" fill="white">Adding granular attributes</text>
+
+            <rect id="box_Trigger_import_profile" x="0" y="920" width="200" height="50" fill="green" />
+            <text x="100" y="950" font-size="14" text-anchor="middle" fill="white">Trigger import profile</text>
+            <rect id="box_Trigger_import_snapshot" x="200" y="920" width="200" height="50" fill="green" />
+            <text x="300" y="950" font-size="14" text-anchor="middle" fill="white">Trigger import snapshot</text>
+            <rect id="box_Trigger_import_ph" x="400" y="920" width="200" height="50" fill="green" />
+            <text x="500" y="950" font-size="14" text-anchor="middle" fill="white">Trigger import ph</text>
+
+            <rect id="box_Trigger_cdc_sync_struct" x="200" y="990" width="200" height="50" fill="green" />
+            <text x="300" y="1020" font-size="14" text-anchor="middle" fill="white">Trigger cdc-sync-struct</text>
+
+            <rect id="box_Trigger_partial_load_dag" x="200" y="1060" width="200" height="50" fill="green" />
+            <text x="300" y="1090" font-size="14" text-anchor="middle" fill="white">Trigger partial load dag</text>
+
+            <rect id="box_Trigger_lightning_dag" x="200" y="1130" width="200" height="50" fill="green" />
+            <text x="300" y="1160" font-size="14" text-anchor="middle" fill="white">Trigger lightning dag</text>
+
+            <!-- Section 4 Box -->
+            <rect id="box_post_script_SQL" x="200" y="1200" width="200" height="50" fill="green" />
+            <text x="300" y="1230" font-size="14" text-anchor="middle" fill="white">Post script SQL</text>
+
+            <rect id="box_post_script_SF" x="200" y="1270" width="200" height="50" fill="green" />
+            <text x="300" y="1300" font-size="14" text-anchor="middle" fill="white">Post script SF</text>
+        </svg>
+    </div>
+
+    <script>
+        // Define constant arrays for toggles and corresponding boxes
+        const tenant_definitions = [
+            {
+              toggleId: 'toggle_Lightning', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Trigger_lightning_dag']
+            },
+            { 
+              toggleId: 'toggle_CEIC',
+              disableBoxIds: [],
+              enableBoxIds: ['box_Trigger_partial_load_dag'] 
+            },
+            { 
+              toggleId: 'toggle_New_PH',
+              disableBoxIds: [],
+              enableBoxIds: [] 
+            }
+        ];
+      
+        const task_parameters = [
+            { 
+              toggleId: 'toggle_Delete_periodic_attributes',
+              disableBoxIds: [],
+              enableBoxIds: ['box_Delete_periodic_attributes', 'box_Trigger_cdc_sync_struct'] 
+            },
+            { 
+              toggleId: 'toggle_Delete_granular_attributes',
+              disableBoxIds: [],
+              enableBoxIds: ['box_Delete_granular_attributes'] 
+            },
+            { 
+              toggleId: 'toggle_Copy_sf_tables', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Copy_sf_tables'] 
+            },
+            { 
+              toggleId: 'toggle_Pre_script_SQL', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Pre_script_SQL'] 
+            },
+            { 
+              toggleId: 'toggle_Pre_script_SF', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Pre_script_SF'] 
+            },
+            { 
+              toggleId: 'toggle_Drop_ogen_tables', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Drop_ogen_tables'] 
+            },
+            { 
+              toggleId: 'toggle_Replace_Matillion_job', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Replace_Matillion_job'] 
+            },
+            { 
+              toggleId: 'toggle_Trigger_ETL', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Trigger_ETL'] 
+            },
+            { 
+              toggleId: 'toggle_Complete_PR',
+              disableBoxIds: [],
+              enableBoxIds: ['box_Complete_PR'] 
+            },
+            { 
+              toggleId: 'toggle_Trigger_profile_DAG', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Trigger_profile_DAG', 'box_Trigger_multi_actions_profile', 'box_Trigger_import_profile'] 
+            },
+            { 
+              toggleId: 'toggle_Trigger_snapshot_DAG', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Trigger_snapshot_DAG', 'box_Trigger_multi_actions_snapshot', 'box_Trigger_import_snapshot'] 
+            },
+            { 
+              toggleId: 'toggle_Trigger_ph_DAG', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Trigger_ph_DAG', 'box_Trigger_multi_actions_ph', 'box_Trigger_import_ph'] 
+            },
+            { 
+              toggleId: 'toggle_Adding_periodic_attributes', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Trigger_multi_actions_profile', 'box_Adding_periodic_attributes', 'box_Trigger_cdc_sync_struct'] 
+            },
+            { 
+              toggleId: 'toggle_Adding_granular_attributes', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_Trigger_multi_actions_snapshot', 'box_Adding_granular_attributes'] 
+            },
+            { 
+              toggleId: 'toggle_Post_script_SQL', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_post_script_SQL'] 
+            },
+            { 
+              toggleId: 'toggle_Post_script_SF', 
+              disableBoxIds: [],
+              enableBoxIds: ['box_post_script_SF'] 
+            }
+        ];
+
+        // Function to update the diagram based on toggles
+        function updateDiagram() {
+            const modifyToggle = document.getElementById('modifyCheckbox').checked;
+
+            if (modifyToggle) {
+                // Create a map to store the state of each box
+                const boxStates = {};
+
+                // Initialize box states based on tenant definitions
+                tenant_definitions.forEach(item => {
+                    const toggle = document.getElementById(item.toggleId);
+                    if (toggle) {
+                        const shouldEnable = toggle.checked;
+                        item.disableBoxIds.forEach(boxId => {
+                            if (!boxStates[boxId]) boxStates[boxId] = { visible: true };
+                            boxStates[boxId].visible = !shouldEnable;
+                        });
+                        item.enableBoxIds.forEach(boxId => {
+                            if (!boxStates[boxId]) boxStates[boxId] = { visible: false };
+                            boxStates[boxId].visible = shouldEnable;
+                        });
+                    }
+                });
+
+                // Update box states based on task parameters
+                task_parameters.forEach(item => {
+                    const toggle = document.getElementById(item.toggleId);
+                    if (toggle) {
+                        const shouldEnable = toggle.checked;
+                        item.disableBoxIds.forEach(boxId => {
+                            if (!boxStates[boxId]) boxStates[boxId] = { visible: true };
+                            boxStates[boxId].visible = !shouldEnable;
+                        });
+                        item.enableBoxIds.forEach(boxId => {
+                            if (!boxStates[boxId]) boxStates[boxId] = { visible: false };
+                            boxStates[boxId].visible = shouldEnable;
+                        });
+                    }
+                });
+
+                //// Handle special cases for combined toggle effects
+                const addingPeriodicChecked = document.getElementById('toggle_Adding_periodic_attributes').checked;
+                const addingGranularChecked = document.getElementById('toggle_Adding_granular_attributes').checked;
+                const triggerProfileDAGChecked = document.getElementById('toggle_Trigger_profile_DAG').checked;
+                const triggerSnapshotDAGChecked = document.getElementById('toggle_Trigger_snapshot_DAG').checked;
+                const triggerPhDAGChecked = document.getElementById('toggle_Trigger_ph_DAG').checked;
+                const lightningChecked = document.getElementById('toggle_Lightning').checked;
+                const CEICChecked = document.getElementById('toggle_CEIC').checked;
+                const NewPHChecked = document.getElementById('toggle_New_PH').checked;
+              
+
+                
+                // Prioritization logic
+                
+                if (NewPHChecked) {
+                  ['box_Trigger_multi_actions_ph', 'box_Trigger_import_ph'].forEach(boxId => {
+                    if (!boxStates[boxId]) boxStates[boxId] = { visible: true };
+                    boxStates[boxId].visible = false;
+                  });
+                }
+              
+                if (triggerProfileDAGChecked || addingPeriodicChecked) {
+                  ['box_Trigger_multi_actions_profile', 'box_Trigger_import_profile'].forEach(boxId => {
+                    if (!boxStates[boxId]) boxStates[boxId] = { visible: false };
+                    boxStates[boxId].visible = true;
+                  });
+                }
+              
+                if (triggerSnapshotDAGChecked || addingGranularChecked) {
+                  ['box_Trigger_multi_actions_snapshot', 'box_Trigger_import_snapshot'].forEach(boxId => {
+                    if (!boxStates[boxId]) boxStates[boxId] = { visible: false };
+                    boxStates[boxId].visible = true;
+                  });
+                }
+              
+                if (lightningChecked) {
+                  ['box_Trigger_multi_actions_profile', 'box_Trigger_import_profile', 'box_Trigger_multi_actions_snapshot', 'box_Trigger_import_snapshot', 'box_Trigger_multi_actions_ph', 'box_Trigger_import_ph'].forEach(boxId => {
+                    if (!boxStates[boxId]) boxStates[boxId] = { visible: true };
+                    boxStates[boxId].visible = false;
+                  });
+                }
+              
+                if (CEICChecked && (triggerProfileDAGChecked || triggerSnapshotDAGChecked || triggerPhDAGChecked)) {
+                  // Disable specific boxes when 'toggle_Lightning' is checked
+                  ['box_Trigger_partial_load_dag'].forEach(boxId => {
+                    if (!boxStates[boxId]) boxStates[boxId] = { visible: true };
+                    boxStates[boxId].visible = true;
+                  });
+                }
+              
+                if (lightningChecked && CEICChecked) {
+                  // Disable specific boxes when 'toggle_Lightning' is checked
+                  ['box_Trigger_partial_load_dag'].forEach(boxId => {
+                    if (!boxStates[boxId]) boxStates[boxId] = { visible: true };
+                    boxStates[boxId].visible = false;
+                  });
+                }
+              
+
+                if (lightningChecked && (triggerProfileDAGChecked || triggerSnapshotDAGChecked || triggerPhDAGChecked)) {
+                  // Enable 'box_Trigger_lightning_dag' when condition is met
+                  if (!boxStates['box_Trigger_lightning_dag']) boxStates['box_Trigger_lightning_dag'] = { visible: false };
+                  boxStates['box_Trigger_lightning_dag'].visible = true;
+                } else {
+                  // Otherwise, keep it disabled
+                  if (!boxStates['box_Trigger_lightning_dag']) boxStates['box_Trigger_lightning_dag'] = { visible: true };
+                  boxStates['box_Trigger_lightning_dag'].visible = false;
+                }
+                
+                if (addingPeriodicChecked) {
+                  ['box_Trigger_multi_actions_profile'].forEach(boxId => {
+                    if (!boxStates[boxId]) boxStates[boxId] = { visible: true };
+                    boxStates[boxId].visible = true;
+                  });
+                }
+              
+                if (addingGranularChecked) {
+                  ['box_Trigger_multi_actions_snapshot'].forEach(boxId => {
+                    if (!boxStates[boxId]) boxStates[boxId] = { visible: true };
+                    boxStates[boxId].visible = true;
+                  });
+                }
+              
+
+
+                // Apply the visibility based on the combined state
+                Object.keys(boxStates).forEach(boxId => {
+                    document.getElementById(boxId).style.display = boxStates[boxId].visible ? 'inline' : 'none';
+                });
+            } else {
+                // If modifyCheckbox is not checked, show all boxes
+                tenant_definitions.flatMap(item => item.disableBoxIds.concat(item.enableBoxIds))
+                    .concat(task_parameters.flatMap(item => item.disableBoxIds.concat(item.enableBoxIds)))
+                    .forEach(boxId => {
+                        document.getElementById(boxId).style.display = 'inline';
+                    });
+            }
+        }
+
+        // This function manages the visibility of controls based on the modifyCheckbox state.
+        function toggleControlsVisibility() {
+            const modifyToggle = document.getElementById('modifyCheckbox');
+            const toggleControls = document.getElementById('toggle-controls');
+            toggleControls.style.display = modifyToggle.checked ? 'block' : 'none';
+            updateDiagram();
+        }
+        
+        // This function enables all checkboxes (toggles).
+        function enableToggles() {
+            const allToggles = tenant_definitions.concat(task_parameters);
+            allToggles.forEach(item => {
+                const toggle = document.getElementById(item.toggleId);
+                if (toggle) toggle.disabled = false;
+            });
+            updateDiagram();
+        }
+
+        // This code sets up event listeners when the window loads.
+        window.addEventListener('load', () => {
+            enableToggles();
+            document.getElementById('modifyCheckbox').addEventListener('change', toggleControlsVisibility);
+        });
+
+        // Attach change event listeners to all relevant checkboxes.
+        tenant_definitions.concat(task_parameters).forEach(item => {
+            const toggle = document.getElementById(item.toggleId);
+            if (toggle) toggle.addEventListener('change', updateDiagram);
+        });
+
+        updateDiagram();
+    </script>
+</body>
+</html>
