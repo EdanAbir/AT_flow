@@ -35,7 +35,7 @@
         .framed-div {
             border: 2px solid black; /* 2-pixel solid black border */
             padding: 15px; /* Inner spacing around the content */
-            width: 900px; /* Width of the div */
+            width: 600px; /* Width of the div */
             //margin: 20px auto; /* Center the div with automatic margins */
         }
     </style>
@@ -371,7 +371,7 @@
                 }
               
 
-                if (lightningChecked && (triggerProfileDAGChecked || triggerSnapshotDAGChecked || triggerPhDAGChecked)) {
+                if (lightningChecked && (triggerProfileDAGChecked || triggerSnapshotDAGChecked || triggerPhDAGChecked || addingPeriodicChecked)) {
                   // Enable 'box_Trigger_lightning_dag' when condition is met
                   if (!boxStates['box_Trigger_lightning_dag']) boxStates['box_Trigger_lightning_dag'] = { visible: false };
                   boxStates['box_Trigger_lightning_dag'].visible = true;
